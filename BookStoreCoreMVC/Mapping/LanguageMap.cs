@@ -13,11 +13,11 @@ public class LanguageMap : IEntityTypeConfiguration<Language>
 {
     void IEntityTypeConfiguration<Language>.Configure(EntityTypeBuilder<Language> builder)
     {
-        //builder.HasKey(p => p.Id);
-        //builder.Property(p => p.Id)
-        //    .HasColumnType("varchar(450)");
+        builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id)
+            .HasColumnType("varchar(450)");
 
-        //builder.Property(p => p.Name)
-        //    .HasColumnType("nvarchar(150)");
+        builder.Property(p => p.Name)
+            .HasColumnType("nvarchar(150)");
     }
 }
