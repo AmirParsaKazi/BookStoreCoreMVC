@@ -2,7 +2,7 @@
 using BookStoreCoreMVC.Mapping;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookStoreCoreMVC.Infrastructure.Data;
+namespace BookStoreCoreMVC.Data;
 
 //add-migration -name init -context ApplicationDBContext -o Data/Migrations
 //update-database
