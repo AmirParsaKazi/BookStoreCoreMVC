@@ -1,4 +1,4 @@
-using BookStoreCoreMVC.Infrastructure.Data;
+using BookStoreCoreMVC.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +27,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
 
 app.MapControllerRoute(
     name: "default",
