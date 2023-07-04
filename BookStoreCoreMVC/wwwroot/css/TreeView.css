@@ -1,0 +1,74 @@
+﻿@charset "UTF-8";
+/* Remove default bullets */
+ul {
+    list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+    margin: 0;
+    padding: 0;
+    padding-right: 16px;
+}
+
+    #myUL li {
+        position: relative;
+    }
+
+.tree-view-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .tree-view-btns > button {
+        flex-grow: 1;
+        font-size: .9rem;
+        padding-inline: 0;
+    }
+    /* Style the caret/arrow */
+    .caret {
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; /* Prevent text selection */
+        /* padding-left: 2px; */
+        position: absolute;
+        font-size: 12px;
+        right: -13px;
+        top: 4px;
+    }
+
+    /* Create the caret/arrow with a unicode, and style it */
+    .caret::before {
+        content: "◀";
+        color: black;
+        display: inline-block;
+    }
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+    transform: rotate(-90deg);
+}
+
+/* Hide the nested list */
+.nested {
+    display: none;
+    position: relative;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+    display: block;
+}
+/*
+.nested.is-expandable::before {
+    border-left: 1px dashed #33333355;
+    content: "";
+    height: 100%;
+    right: -8.6px;
+    position: absolute;
+    top: 0.25rem;
+    height: calc(100% - 0.4rem);
+}
+*/
