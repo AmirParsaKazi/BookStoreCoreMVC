@@ -1,0 +1,193 @@
+﻿@model BookStoreCoreMVC.Models.ViewModels.Book.CreateBooksFormGetViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section Link {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/css/TreeView.css" rel="stylesheet" />
+
+}
+
+
+<div class="container">
+    <form asp-controller="Books" asp-action="Create">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card h-50">
+                    <div class="card-header bg-light">
+                        افزودن دسته بندی کتاب
+                    </div>
+                    <div class="card-body">
+                        <div class="tree-view h-100">
+                            <div class="tree-view-btns mb-3">
+                                <button type="button" class="btn btn-primary tv-expended-btn">expend</button>
+                                <button type="button" class="btn btn-primary tv-collapsed-btn">collapse</button>
+                                <button type="button" class="btn btn-primary tv-clear-btn">clear</button>
+                            </div>
+                            <ul id="myUL" class="tree-view-body custome_tree_view_body">
+                                <span class="text-danger"></span>
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <li>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class=" form-check-input me-1 position-static" name="CategoryID" value="@item.CategoryId" />
+                                            @item.CategoryName
+                                        </label>
+                                        @await Html.PartialAsync("_SubCategories",item.SubCategories)
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        افزودن اطلاعات کتاب
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="@Model.Title"></label>
+                                        <input asp-for="@Model.Title" class="form-control" placeholder="عنوان کتاب">
+                                        <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ISBN" class="form-control-label"></label>
+                                        <input asp-for="@Model.ISBN" class="form-control" placeholder="شابک">
+                                        <span asp-validation-for="@Model.ISBN" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="NumOfPage"></label>
+                                        <input asp-for="NumOfPage" class="form-control" min="0" value="" placeholder="تعداد صفحات">
+                                        <span asp-validation-for="NumOfPage" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="Price"></label>
+                                        <input asp-for="Price" class="form-control" min="0" value="" placeholder="قیمت کتاب">
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="LanguageID"></label>
+                                        <select class="form-control" asp-for="LanguageID" asp-items="@ViewBag.LanguageID">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                        <span asp-validation-for="LanguageID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="PublisherID"></label>
+                                        <select class="form-control" asp-for="PublisherID" asp-items="@ViewBag.PublisherID">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                        <span asp-validation-for="PublisherID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="TranslatorsID"></label>
+                                        <select class="js-example-placeholder-multiple js-states form-control" asp-for="TranslatorsID" asp-items="@ViewBag.TranslatorID"></select>
+                                        <span asp-validation-for="TranslatorsID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="AuthorsID"></label>
+                                        <select class="js-example-placeholder-multiple js-states form-control" asp-for="AuthorsID" asp-items="@ViewBag.AuthorID"></select>
+                                        <span asp-validation-for="AuthorsID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Weight" class="form-control-label"></label>
+                                        <input asp-for="@Model.Weight" min="0" class="form-control" value="" placeholder="وزن کتاب">
+                                        <span asp-validation-for="@Model.Weight" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Stock" class="form-control-label"></label>
+                                        <input asp-for="@Model.Stock" min="0" class="form-control" value="" placeholder="موجودی">
+                                        <span asp-validation-for="@Model.Stock" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="@Model.PublishYear"></label>
+                                        <input asp-for="@Model.PublishYear" min="1950" max="2022" class="form-control" value="" placeholder="سال انتشار">
+                                        <span asp-validation-for="@Model.PublishYear" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input class="form-check-input" asp-for="IsPublish" />
+                                        <label class="form-check-label mx-4" asp-for="IsPublish"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="Summary"></label>
+                                        <textarea asp-for="Summary" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light text-right d-flex flex-row-reverse">
+                            <button type="submit" class="btn btn-primary ">ذخیره کتاب</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src='~/js/TreeView.js'></script>
+    <script>
+
+        $(document).ready(function(){
+          $(".js-example-placeholder-multiple").select2({
+              placeholder: "انتخاب کنید"
+          });
+        });
+    </script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

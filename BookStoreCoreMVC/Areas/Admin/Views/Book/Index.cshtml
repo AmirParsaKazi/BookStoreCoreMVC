@@ -1,0 +1,400 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #a5a5a5;
+        border-radius: 50px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #e5e5e5;
+    }
+
+    .main-box {
+        background-color: #fff;
+        border-radius: 3px;
+        padding: 22px;
+    }
+
+    .table-items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 17px;
+    }
+
+    .add-btn {
+    }
+
+        .add-btn a {
+            color: #fff;
+            background-color: #34c38f;
+            border-color: #34c38f;
+            padding: 5px 22px 5px 33px;
+            border-radius: 50px;
+            position: relative;
+        }
+
+            .add-btn a:hover {
+                color: #fff;
+                background-color: #2ca67a;
+                border-color: #2a9c72;
+            }
+
+            .add-btn a:focus {
+                color: #fff;
+                background-color: #2ca67a;
+                border-color: #2a9c72;
+                -webkit-box-shadow: 0 0 0 0.15rem rgb(82 204 160 / 50%);
+                box-shadow: 0 0 0 0.15rem rgb(82 204 160 / 50%);
+            }
+
+            .add-btn a::after {
+                content: "+";
+                position: absolute;
+                font-size: 1.9rem;
+                top: 50%;
+                transform: translate(-8px,-50%);
+            }
+
+    .search-input {
+        position: relative;
+    }
+
+        .search-input input {
+            border-radius: 30px;
+            padding-right: 40px;
+        }
+
+        .search-input::after {
+            content: "\f002";
+            color: #495057;
+            font-family: 'fa-solid-900';
+            position: absolute;
+            font-size: 1rem;
+            top: 50%;
+            transform: translate(-14px,-50%);
+        }
+
+        .search-input input:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #b9bfc4;
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+    .table-container {
+        overflow: auto;
+    }
+
+        .table-container::-webkit-scrollbar {
+            height: 7px;
+            width: 7px;
+        }
+
+    .books-table {
+        text-align: center;
+        overflow: auto;
+    }
+
+        .books-table > :not(caption) > * > * {
+            padding: 0.75rem 0.75rem;
+            border-bottom-width: 1px;
+            vertical-align: middle;
+        }
+
+
+    thead {
+        color: #495057;
+        border-color: #eff2f7;
+        background-color: #f8f9fa;
+    }
+
+        thead > tr {
+        }
+
+            thead > tr > th {
+                white-space: nowrap;
+            }
+
+    tbody {
+    }
+
+        tbody > tr {
+        }
+
+            tbody > tr > td {
+                white-space: nowrap;
+                border-color: #eff2f7;
+            }
+
+    .text-overflow-change {
+        overflow: hidden;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        -webkit-line-clamp: 1;
+        line-height: 2.2rem;
+        width: 400px;
+    }
+
+    .details-icon {
+        color: #556ee6;
+        border-color: #556ee6;
+        font-size: 1.3rem;
+    }
+
+        .details-icon:hover {
+            color: #485ec4;
+            border-color: #4458b8;
+        }
+
+
+    .action-icon > a {
+        margin: 0.7rem;
+    }
+
+        .action-icon > a:first-child {
+            color: rgb(244,106,106);
+        }
+
+        .action-icon > a:last-child {
+            color: rgb(52,195,143);
+        }
+</style>
+
+<div class="main-box">
+    <div class="table-items">
+        <div class="search-input">
+            <form>
+                <input class=" form-control" type="text" placeholder="جست و جو..." />
+            </form>
+        </div>
+        <div class="add-btn">
+            <a asp-area="Admin" asp-controller="Books" asp-action="Create">
+                کتاب جدید
+            </a>
+        </div>
+
+    </div>
+    <div class="table-container bg-white">
+        <table class="books-table">
+            <thead>
+                <tr>
+                    <th>
+                        فعالیت
+                    </th>
+                    <th>
+                        جزِئیات
+                    </th>
+                    <th>
+                        عنوان
+                    </th>
+                    <th>
+                        شابک
+                    </th>
+                    <th>
+                        تعداد صفحات
+                    </th>
+                    <th>
+                        قیمت
+                    </th>
+                    <th>
+                        زبان
+                    </th>
+                    <th>
+                        ناشر
+                    </th>
+                    <th>
+                        مترجمان
+                    </th>
+                    <th>
+                        نویسندگان
+                    </th>
+                    <th>
+                        وزن
+                    </th>
+                    <th>
+                        موجودی
+                    </th>
+                    <th>
+                        سال انتشار
+                    </th>
+                    <th>
+                        انتشار شده
+                    </th>
+                    <th>
+                        خلاصه
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @* <tr>
+                <td class="action-icon">
+                <a asp-area="Admin" asp-controller="Books" asp-action="Delete">
+                <i class="fa-solid fa-trash"></i>
+                </a>
+                <a asp-area="Admin" asp-controller="Books" asp-action="Edit" asp-route-id="">
+                <i class="fa-solid fa-pen"></i>
+                </a>
+                </td>
+                <td>
+                <a href="#" class="details-icon">
+                <i class="fa-solid fa-circle-info"></i>
+                </a>
+                </td>
+                <td>
+                @Model.Title
+                شازده کوچولو
+                </td>
+                <td>
+                @Model.ISBN
+                ۹۷۸-۶۰۰-۳۷۶-۱۲۲-۳
+                </td>
+                <td>
+                @Model.NumOfPage
+                ۱۰۹
+                </td>
+                <td>
+                @Model.Price
+                ۳۰,۰۰۰
+                </td>
+                <td>
+                @Model.LanguageID
+                فارسی
+                </td>
+                <td>
+                @Model.PublisherID
+                نگاه
+                </td>
+                <td>
+                @Model.TranslatorsID
+                احمد شاملو
+                </td>
+                <td>
+                @Model.AuthorsID
+                آنتوان دوسنت اگزوپری
+                </td>
+                <td>
+                @Model.Weight
+                ۱
+                </td>
+                <td>
+                @Model.Stock
+                ۳۰
+                </td>
+                <td>
+                @Model.PublishYear
+                ۱۳۹۵/۰۱/۰۳
+                </td>
+                @if (Model.IsPublish) {
+                <td class="text-success">
+                &#10004;
+                </td>
+                }
+                else
+                {
+                <td class="text-danger">
+                &#128473;
+                </td>
+                }
+                <td>
+                <div class="text-overflow-change">
+                @Model.Summary
+                شاهکارم را نشان بزرگ‌ترها دادم و پرسیدم از دیدنش ترس‌تان برمی‌دارد؟
+
+                جوابم دادند: ـ چرا کلاه باید آدم را بترساند؟
+
+                نقاشی من کلاه نبود، یک مار بوآ بود که داشت یک فیل را هضم می‌کرد. آن‌وقت برای فهم بزرگ ترها برداشتم توی شکم بوآ را کشیدم. آخر همیشه باید به آن‌ها توضیحات داد. ـ نقاشی دومم این‌جوری بود.
+
+                بزرگ‌ترها بم گفتند کشیدن مار بوآی باز یا بسته را بگذارم کنار و عوضش حواسم را بیش‌تر جمع جغرافی و تاریخ و حساب و دستور زبان کنم. و این‌جوری شد که تو شش‌ساله‌گی دور کار ظریف نقاشی را قلم گرفتم. از این‌که نقاشی شماره‌ی یک و نقاشی شماره‌ی دواَم یخ‌شان نگرفت دلسرد شده بودم. بزرگ‌ترها اگر به خودشان باشد هیچ وقت نمی‌توانند از چیزی سر درآرند. برای بچه‌ها هم خسته‌کننده است که همین‌جور مدام هر چیزی را به آن‌ها توضیح بدهند. ناچار شدم برای خودم کار دیگری پیدا کنم و این بود که رفتم خلبانی یاد گرفتم. بگویی نگویی تا حالا به همه جای دنیا پرواز کرده‌ام و راستی راستی جغرافی خیلی بِم خدمت کرده. می‌توانم به یک نظر چین و آریزونا را از هم تمیز بدهم. اگر آدم تو دلِ شب سرگردان شده باشد جغرافی خیلی به دادش می‌رسد.
+
+                از این راه است که من تو زنده‌گیم با گروه گروه آدم‌های حسابی برخورد داشته‌ام. پیش خیلی از بزرگ‌ترها زنده‌گی کرده‌ام و آن‌ها را از خیلی نزدیک دیده‌ام گیرم این موضوع باعث نشده درباره‌ی آن‌ها عقیده‌ی بهتری پیدا کنم.
+
+                هر وقت یکی‌شان را دیده‌ام که یک‌خرده روشن‌بین به نظرم آمده با نقاشی شماره‌ی یکم که هنوز هم دارمش محکش زده‌ام ببینم راستی راستی چیزی بارش هست یا نه.
+
+                </div>
+                </td>
+                </tr>*@
+
+                <tr>
+                    <td class="action-icon">
+                        <a href="#">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="details-icon">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                    </td>
+                    <td>
+                        دور دنیا در هشتاد روز
+                    </td>
+                    <td>
+                        978-600-253-101-8
+                    </td>
+                    <td>
+                        ۲۳۲
+                    </td>
+                    <td>
+                        ۴۴۰,۰۰۰
+                    </td>
+                    <td>
+                        فارسی
+                    </td>
+                    <td>
+                        بنگاه ترجمه و نشر کتاب پارسه
+                    </td>
+                    <td>
+                        آرمین هدایتی
+                    </td>
+                    <td>
+                        ژول ورن
+                    </td>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        120
+                    </td>
+                    <td>
+                        ۱۳۹۶/۰۹/۰۶
+                    </td>
+                    <td class="text-danger">
+                        &#10006;
+                    </td>
+                    <td>
+                        <div class="text-overflow-change">
+
+                            ساعت هفت صبح، ویلى، آئودا و پاسپارتو قدم بر خاک آمریکا گذاشتند. ویلى بلافاصله ساعت حرکت قطار بعدى به مقصد نیویورک را پرسید. قطار ساعت شش بعدازظهر حرکت مى‌کرد، بنابراین براى گشت‌ و گذار در مرکز ایالت کالیفرنیا فرصت کافى داشت. او کالسکه‌اى کرایه کرد تا به هتل اینترنشنال بروند.
+
+                            پس از حمام کردن و خوردن صبحانه، ویلى و آئودا هتل را به مقصد دفتر کنسولگرى انگلستان ترک کردند. پیش از آن‌که آقاى فاگ از هتل خارج شود، پاسپارتو به ارباب خود گفت بهتر است چند قبضه سلاح کمرى بخرند، چون شنیده بود که سرخپوست‌ها گاهى با حمله به قطارها اموال مسافران را چپاول مى‌کنند. ویلى فاگ به او گفت که هر طور صلاح مى‌داند عمل کند.
+
+                            وقتی به هتل بازگشت، پاسپارتو به همراه نیم‌جین سلاح کمرى، انتظارش را مى‌کشید. ویلى تنها یکى از ابروانش را کمى بالا برد و سپس هفت‌ تیر را در کیف پول قرار داد. سر ساعت شش، قطار آن‌ها سان‌ فرانسیسکو را براى پیمودن مسیری هفت‌ روزه به مقصد نیویورک ترک کرد. آسمان کم‌کم رو به تاریکى مى‌رفت و هوا سرد، ملال‌آور و کمى ابرى بود. فیکس هم در همان کابین به آن‌ها پیوست، اما به‌ ندرت حرفى به میان مى‌آمد.
+
+                            پاسپارتو جایى در نزدیکى کارآگاه پیدا کرد و بى‌آنکه حرفى بزند، کنارش نشست. در‌ واقع او آماده بود که اگر کوچک‌ترین حرکت مشکوکى از کارآگاه سر بزند، با دست‌هایش خفه‌اش کند! صبح روز بعد، قطار که انگار بر فراز دره‌هاى عمیق معلق بود، از پیچ و خم رشته‌ کوهى ناهموار مى‌گذشت و گاهى نیز از میان تنگه‌هاى باریک عبور مى‌کرد.
+
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
